@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiseWebAssessment", "RiseWebAssessment\RiseWebAssessment.csproj", "{BA78BD3A-0EBA-403E-A79D-96E2FB3E0191}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA78BD3A-0EBA-403E-A79D-96E2FB3E0191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA78BD3A-0EBA-403E-A79D-96E2FB3E0191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA78BD3A-0EBA-403E-A79D-96E2FB3E0191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA78BD3A-0EBA-403E-A79D-96E2FB3E0191}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0397C5D-67DE-40EE-80F9-B11EF6C4F29C}
+	EndGlobalSection
+EndGlobal
