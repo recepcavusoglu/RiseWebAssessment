@@ -1,11 +1,13 @@
 global using RiseWebAssessment.Data;
 global using Microsoft.EntityFrameworkCore;
 global using Npgsql;
+using RiseWebAssessment.Service.ServiceAbstracts;
+using RiseWebAssessment.Service.ServiceConcretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>(options => {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));

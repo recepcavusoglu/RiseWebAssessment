@@ -11,7 +11,7 @@ using RiseWebAssessment.Data;
 namespace RiseWebAssessment.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220211212716_CreateInitial")]
+    [Migration("20220212104047_CreateInitial")]
     partial class CreateInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
