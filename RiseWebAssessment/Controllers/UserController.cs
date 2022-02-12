@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RiseWebAssessment.Model.DTO;
 using RiseWebAssessment.Service.ServiceAbstracts;
 
 namespace RiseWebAssessment.Controllers
@@ -16,13 +17,13 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpGet("GetUsers")]
-        public async Task<ActionResult<List<User>>> GetUsers()
+        public async Task<ActionResult<List<UserDto>>> GetUsers()
         {
             return Ok(userService.GetAllUsers());
         }
 
         [HttpGet("GetUserById/{id}")] 
-        public async Task<ActionResult<User>> GetUserById(int id)
+        public async Task<ActionResult<UserDto>> GetUserById(int id)
         {
             var user = userService.GetUser(id);
             if(user == null)
@@ -33,17 +34,19 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpPost("AddUser")] 
-        public async Task<ActionResult<List<User>>> AddUser(User user)
+        public async Task<ActionResult<List<UserDto>>> AddUser(UserDto userDto)
         {
-            if(userService.GetUser(user.Id) == null)
+            var user = userService.GetUser(userDto.Id);
+            if (user == null)
             {
-                return Ok(userService.AddUser(user));
+                userService.AddUser(userDto);
+                return Ok("User Added");
             }
             return BadRequest("User Already Exist");
         }
 
         [HttpPut("UpdateUser")] 
-        public async Task<ActionResult<List<User>>> UpdateUser(User request)
+        public async Task<ActionResult<List<UserDto>>> UpdateUser(UserDto request)
         {
             var user = userService.UpdateUser(request);
             if(user == request) { return BadRequest("Error while updating"); }
@@ -51,7 +54,7 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpDelete("DeleteUser/{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<UserDto>> DeleteUser(int id)
         {
             var user = userService.GetUser(id);
             if (user == null)
@@ -63,7 +66,7 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpPut("DeactivateUser/{id}")]
-        public async Task<ActionResult<User>> DeactivateUser(int id)
+        public async Task<ActionResult<UserDto>> DeactivateUser(int id)
         {
             var user = userService.GetUser(id);
             if (user == null)
@@ -74,10 +77,11 @@ namespace RiseWebAssessment.Controllers
             return Ok("User Deleted");
         }
 
-        [HttpGet("GetAllActiveUsers/{id}")]
-        public async Task<ActionResult<List<User>>> GetAllActiveUsers()
+        [HttpGet("GetAllActiveUsers")]
+        public async Task<ActionResult<List<UserDto>>> GetAllActiveUsers()
         {
-            return Ok(GetAllActiveUsers());
+            var users = await userService.GetAllActiveUsers();
+            return Ok(users);
         }
     }
 }

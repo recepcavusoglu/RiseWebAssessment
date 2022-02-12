@@ -1,4 +1,6 @@
-﻿using RiseWebAssessment.Model;
+﻿using AutoMapper;
+using RiseWebAssessment.Model;
+using RiseWebAssessment.Model.DTO;
 using RiseWebAssessment.Service.ServiceAbstracts;
 
 namespace RiseWebAssessment.Service.ServiceConcretes
@@ -6,42 +8,46 @@ namespace RiseWebAssessment.Service.ServiceConcretes
     public class ContactService : IContactService
     {
         private readonly DataContext _dataContext;
+        private readonly IMapper _mapper;
 
-        public ContactService(DataContext dataContext)
+        public ContactService(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
+            _mapper = mapper;
         }
-        public Contact AddContact(Contact contact)
+        // TODO: Fix Enum
+        public async Task AddContact(ContactDto contactDto)
         {
-            _dataContext.Contacts.Add(contact);
-            _dataContext.Contacts.Update(contact);
+            var mappedUser = _mapper.Map<Contact>(contactDto);
+            mappedUser.LastModify = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
+            await _dataContext.Contacts.AddAsync(mappedUser);
             _dataContext.SaveChanges();
-            return contact;
         }
-        public Contact GetContact(int id)
+        public ContactDto GetContact(int id)
         {
-            var contact = _dataContext.Contacts.FindAsync(id);
+            var contact = _dataContext.Contacts.Find(id);
             if (contact != null)
             {
-                return _dataContext.Contacts.Find(id);
+                return _mapper.Map<ContactDto>(_dataContext.Contacts.Find(id));
             }
             return null;
         }
 
-        public List<Contact> GetAllContacts()
+        public List<ContactDto> GetAllContacts()
         {
-            return _dataContext.Contacts.ToList();
+            var contacts = _dataContext.Contacts.ToList();
+            return _mapper.Map<List<ContactDto>>(contacts);
         }
-        public Contact UpdateContact(Contact request)
+        public ContactDto UpdateContact(ContactDto request)
         {
             var contact = _dataContext.Contacts.Find(request.Id);
             if (contact != null)
             {
                 contact.InfoContent = request.InfoContent;
-                contact.LastModify = DateTime.Now;
+                contact.LastModify = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 _dataContext.Contacts.Update(contact);
                 _dataContext.SaveChanges();
-                return contact;
+                return _mapper.Map<ContactDto>(contact);
             }
             return request;
         }
@@ -54,13 +60,14 @@ namespace RiseWebAssessment.Service.ServiceConcretes
         {
             var contact = _dataContext.Contacts.Find(id);
             contact.IsActive = !contact.IsActive;
-            contact.LastModify = DateTime.Now;
+            contact.LastModify = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
             _dataContext.Contacts.Update(contact);
             _dataContext.SaveChanges();
         }
-        public List<Contact> GetAllActiveContacts()
+        public async Task<List<ContactDto>> GetAllActiveContacts()
         {
-            return  _dataContext.Contacts.Where(x => x.IsActive).ToList();
+            var contacts = _dataContext.Contacts.Where(x => x.IsActive).ToList();
+            return _mapper.Map<List<ContactDto>>(contacts);
         }
     }
 }

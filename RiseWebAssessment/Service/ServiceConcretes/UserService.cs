@@ -1,43 +1,44 @@
-﻿using RiseWebAssessment.Service.ServiceAbstracts;
+﻿using AutoMapper;
+using RiseWebAssessment.Model.DTO;
+using RiseWebAssessment.Service.ServiceAbstracts;
 
 namespace RiseWebAssessment.Service.ServiceConcretes
 {
     public class UserService : IUserService
     {
         private readonly DataContext _dataContext;
-
-        public UserService(DataContext dataContext)
+        private readonly IMapper _mapper;
+        public UserService(DataContext dataContext,IMapper mapper)
         {
             _dataContext = dataContext;
-        }
-
-       
-
-        public List<User> GetAllUsers()
-        {
-            return _dataContext.Users.ToList();
+            _mapper = mapper;
         }
 
 
-        public User GetUser(int id)
+
+        public List<UserDto> GetAllUsers()
         {
-            var user = _dataContext.Users.FindAsync(id);
+            var users = _dataContext.Users.ToList();
+            return _mapper.Map<List<UserDto>>(users);
+
+        }
+        public UserDto GetUser(int id)
+        {
+            var user = _dataContext.Users.Find(id);
             if (user != null)
-            {
-                return _dataContext.Users.Find(id);                
+            {                
+                return _mapper.Map<UserDto>(_dataContext.Users.Find(id));                
             }
             return null;
         }
-        // TODO : Check user if already exist
-        public User AddUser(User user)
+        public async Task AddUser(UserDto userDto)
         {
-            _dataContext.Users.Add(user);
-            user.LastModify = DateTime.Now;
+            var mappedUser = _mapper.Map<User>(userDto);
+            mappedUser.LastModify = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
+            await _dataContext.Users.AddAsync(mappedUser);            
             _dataContext.SaveChanges();
-            return user;
         }
-        // TODO : Test This!!!
-        public User UpdateUser(User request)
+        public UserDto UpdateUser(UserDto request)
         {
             var user = _dataContext.Users.Find(request.Id);
             if (user != null)
@@ -45,9 +46,9 @@ namespace RiseWebAssessment.Service.ServiceConcretes
                 user.FirstName = request.FirstName;
                 user.LastName = request.LastName;
                 user.Company = request.Company;
-                user.LastModify = DateTime.Now;
+                user.LastModify = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 _dataContext.SaveChanges();
-                return user;                
+                return _mapper.Map<UserDto>(user);
             }
             return request;
         }        
@@ -60,14 +61,19 @@ namespace RiseWebAssessment.Service.ServiceConcretes
         {
             var user = _dataContext.Users.Find(id);
             user.IsActive= false;
-            user.LastModify=DateTime.Now;
+            user.LastModify= DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
             _dataContext.Users.Update(user);
             _dataContext.SaveChanges();
         }
-        public List<User> GetAllActiveUsers()
+        public async Task<List<UserDto>> GetAllActiveUsers()
         {
             var users = _dataContext.Users.Where(x => x.IsActive).ToList();
-            return users;
+            return _mapper.Map<List<UserDto>>(users);
+        }
+        public bool UserExist(int id)
+        {
+            // TODO: Make this method
+            return false;
         }
     }
 }

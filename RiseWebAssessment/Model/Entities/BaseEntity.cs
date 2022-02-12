@@ -4,8 +4,8 @@
     {
         public int Id { get; }
         public DateTime LastModify { get; set; }
-        public DateTime CreationTime { get; } = DateTime.Now;
-
-        public Boolean IsActive { get; set; }
+        // TODO: Check CreationTime Tables dont have it
+        public DateTime CreationTime { get; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
+        public bool IsActive { get; set; } = true;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RiseWebAssessment.Model;
+using RiseWebAssessment.Model.DTO;
 using RiseWebAssessment.Service.ServiceAbstracts;
 
 namespace RiseWebAssessment.Controllers
@@ -17,12 +18,12 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpGet("GetContacts")]
-        public async Task<ActionResult<List<Contact>>> GetAllContacts()
+        public async Task<ActionResult<List<ContactDto>>> GetAllContacts()
         {
             return Ok(contactService.GetAllContacts());
         }
         [HttpGet("GetContactById/{id}")]
-        public async Task<ActionResult<Contact>> GetContactById(int id)
+        public async Task<ActionResult<ContactDto>> GetContactById(int id)
         {
             var contact = contactService.GetContact(id);
             if (contact == null)
@@ -32,16 +33,18 @@ namespace RiseWebAssessment.Controllers
             return Ok(contact);
         }
         [HttpPost("AddContact")]
-        public async Task<ActionResult<List<Contact>>> AddContact(Contact contact)
+        public async Task<ActionResult<List<ContactDto>>> AddContact(ContactDto contactDto)
         {
-            if(contactService.GetContact(contact.Id) == null)
+            var contact = contactService.GetContact(contactDto.Id);
+            if(contact == null)
             {
-                return Ok(contactService.AddContact(contact));
+                contactService.AddContact(contactDto);
+                return Ok("Contact Added");
             }
             return BadRequest("Contact Already Exist");
         }
         [HttpPut("UpdateContact")]
-        public async Task<ActionResult<List<Contact>>> UpdateContact(Contact request)
+        public async Task<ActionResult<List<ContactDto>>> UpdateContact(ContactDto request)
         {
             var contact = contactService.UpdateContact(request);
             if (contact == request) { return BadRequest("Error while updating"); }
@@ -49,7 +52,7 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpDelete("DeleteContact/{id}")]
-        public async Task<ActionResult<Contact>> DeleteContact(int id)
+        public async Task<ActionResult<ContactDto>> DeleteContact(int id)
         {
             var contact = contactService.GetContact(id);
             if (contact == null)
@@ -61,7 +64,7 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpPut("DeactivateContact/{id}")]
-        public async Task<ActionResult<Contact>> DeactivateContact(int id)
+        public async Task<ActionResult<ContactDto>> DeactivateContact(int id)
         {
             var contact = contactService.GetContact(id);
             if (contact == null)
@@ -73,7 +76,7 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpGet("GetAllActiveContacts/{id}")]
-        public async Task<ActionResult<List<Contact>>> GetAllActiveContacts()
+        public async Task<ActionResult<List<ContactDto>>> GetAllActiveContacts()
         {
             return Ok(GetAllActiveContacts());
         }

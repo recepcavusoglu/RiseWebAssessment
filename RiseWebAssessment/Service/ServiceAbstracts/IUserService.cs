@@ -4,12 +4,12 @@ namespace RiseWebAssessment.Service.ServiceAbstracts
 {
     public interface IUserService
     {
-        public User GetUser(int id);
-        public List<User> GetAllUsers();
-        public User AddUser(User user);
-        public User UpdateUser(User user);
+        public UserDto GetUser(int id);
+        public List<UserDto> GetAllUsers();
+        public Task AddUser(UserDto user);
+        public UserDto UpdateUser(UserDto user);
         public void DeleteUser(int id);
         public void DeactivateUser(int id);
-        public List<User> GetAllActiveUsers();
+        public Task<List<UserDto>> GetAllActiveUsers();
     }
 }
