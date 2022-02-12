@@ -57,5 +57,23 @@ namespace RiseWebAssessment.Controllers
             userService.DeleteUser(user);
             return Ok("User Deleted");
         }
+
+        [HttpPut("DeactivateUser/{id}")]
+        public async Task<ActionResult<User>> DeactivateUser(int id)
+        {
+            var user = userService.GetUser(id);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+            userService.DeactivateUser(user);
+            return Ok("User Deleted");
+        }
+
+        [HttpGet("GetAllActiveUsers/{id}")]
+        public async Task<ActionResult<List<User>>> GetAllActiveUsers()
+        {
+            return Ok(GetAllActiveUsers());
+        }
     }
 }

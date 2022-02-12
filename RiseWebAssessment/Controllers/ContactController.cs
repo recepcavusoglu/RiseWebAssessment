@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RiseWebAssessment.Model;
+using RiseWebAssessment.Service.ServiceAbstracts;
 
 namespace RiseWebAssessment.Controllers
 {
@@ -8,24 +9,33 @@ namespace RiseWebAssessment.Controllers
     [ApiController]
     public class ContactController : ControllerBase
     {
-        private readonly DataContext dataContext;
+        private readonly IContactService contactService;
 
-        public ContactController(DataContext dataContext)
+        public ContactController(IContactService contactService)
         {
-            this.dataContext = dataContext;
+            this.contactService = contactService;
         }
 
         [HttpGet("GetContacts")]
-        public async Task<ActionResult<List<User>>> GetContacts()
+        public async Task<ActionResult<List<User>>> GetAllContacts()
         {
-            return Ok(await this.dataContext.Contacts.ToListAsync());
+            return Ok(contactService.GetAllContacts());
         }
+        [HttpGet("GetContactById/{id}")]
+        public async Task<ActionResult<Contact>> GetContactById(int id)
+        {
+            var contact = contactService.GetContact(id);
+            if (contact == null)
+            {
+                return BadRequest("Contact Couldnt Found");
+            }
+            return Ok(contact);
+        }
+        // TODO : Check if contact already exist
         [HttpPost("AddContact")]
         public async Task<ActionResult<List<Contact>>> AddContact(Contact contact)
-        {
-            this.dataContext.Contacts.AddAsync(contact);
-            await this.dataContext.SaveChangesAsync();
-            return Ok(await this.dataContext.Contacts.ToListAsync());
+        {            
+            return Ok(contactService.AddContact(contact));
         }
     }
 }

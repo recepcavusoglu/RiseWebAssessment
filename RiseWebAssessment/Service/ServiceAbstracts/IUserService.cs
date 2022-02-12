@@ -9,5 +9,7 @@ namespace RiseWebAssessment.Service.ServiceAbstracts
         public User AddUser(User user);
         public User UpdateUser(User user);
         public void DeleteUser(User user);
+        public void DeactivateUser(int id);
+        public List<User> GetAllActiveUsers();
     }
 }

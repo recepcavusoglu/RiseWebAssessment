@@ -18,6 +18,7 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             return _dataContext.Users.ToList();
         }
 
+
         public User GetUser(int id)
         {
             var user = _dataContext.Users.FindAsync(id);
@@ -34,6 +35,7 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             _dataContext.SaveChanges();
             return user;
         }
+        // TODO : Test This!!!
         public User UpdateUser(User request)
         {
             var user = _dataContext.Users.Find(request.Id);
@@ -42,17 +44,28 @@ namespace RiseWebAssessment.Service.ServiceConcretes
                 user.FirstName = request.FirstName;
                 user.LastName = request.LastName;
                 user.Company = request.Company;
+                user.LastModify = DateTime.Now;
                 _dataContext.SaveChanges();
                 return user;                
             }
             return request;
-        }
-        // TODO : fix this after ResponseStatus
+        }        
         public void DeleteUser(User deletionUser)
         {
             _dataContext.Users.Remove(deletionUser);
             _dataContext.SaveChangesAsync();
         }
-
+        public void DeactivateUser(int id)
+        {
+            var user = _dataContext.Users.Find(id);
+            user.IsActive= false;
+            _dataContext.Users.Update(user);
+            _dataContext.SaveChanges();
+        }
+        public List<User> GetAllActiveUsers()
+        {
+            var users = _dataContext.Users.Where(x => x.IsActive).ToList();
+            return users;
+        }
     }
 }
