@@ -35,10 +35,14 @@ namespace RiseWebAssessment.Controllers
         [HttpPost("AddUser")] 
         public async Task<ActionResult<List<User>>> AddUser(User user)
         {
-            return Ok(userService.AddUser(user));
+            if(userService.GetUser(user.Id) == null)
+            {
+                return Ok(userService.AddUser(user));
+            }
+            return BadRequest("User Already Exist");
         }
 
-        [HttpPut("Updateuser")] 
+        [HttpPut("UpdateUser")] 
         public async Task<ActionResult<List<User>>> UpdateUser(User request)
         {
             var user = userService.UpdateUser(request);
@@ -54,7 +58,7 @@ namespace RiseWebAssessment.Controllers
             {
                 return BadRequest("User not found.");
             }
-            userService.DeleteUser(user);
+            userService.DeleteUser(id);
             return Ok("User Deleted");
         }
 
@@ -66,7 +70,7 @@ namespace RiseWebAssessment.Controllers
             {
                 return BadRequest("User not found.");
             }
-            userService.DeactivateUser(user);
+            userService.DeactivateUser(id);
             return Ok("User Deleted");
         }
 

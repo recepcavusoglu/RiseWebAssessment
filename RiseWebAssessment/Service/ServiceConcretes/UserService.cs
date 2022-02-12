@@ -32,6 +32,7 @@ namespace RiseWebAssessment.Service.ServiceConcretes
         public User AddUser(User user)
         {
             _dataContext.Users.Add(user);
+            user.LastModify = DateTime.Now;
             _dataContext.SaveChanges();
             return user;
         }
@@ -50,15 +51,16 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             }
             return request;
         }        
-        public void DeleteUser(User deletionUser)
+        public void DeleteUser(int id)
         {
-            _dataContext.Users.Remove(deletionUser);
+            _dataContext.Users.Remove(_dataContext.Users.Find(id));
             _dataContext.SaveChangesAsync();
         }
         public void DeactivateUser(int id)
         {
             var user = _dataContext.Users.Find(id);
             user.IsActive= false;
+            user.LastModify=DateTime.Now;
             _dataContext.Users.Update(user);
             _dataContext.SaveChanges();
         }

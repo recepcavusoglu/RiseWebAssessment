@@ -15,6 +15,7 @@ namespace RiseWebAssessment.Data
         //TODO: can this Enum be better?
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasKey(c => new { c.Id });
             modelBuilder.Entity<Contact>().HasKey(c => new { c.Id });
             modelBuilder.HasPostgresEnum<Enums.InfoType>();
         }
