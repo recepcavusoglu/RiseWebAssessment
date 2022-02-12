@@ -1,9 +1,9 @@
 ﻿
-using WebApi.Model;
-using WebApi.Assets;
+using RiseWebAssessment.Model;
+using RiseWebAssessment.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApi.Data
+namespace RiseWebAssessment.Data
 {
     public class DataContext : DbContext
     {

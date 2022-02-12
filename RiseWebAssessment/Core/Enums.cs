@@ -1,4 +1,4 @@
-﻿namespace WebApi.Assets
+﻿namespace RiseWebAssessment.Core
 {
     public static class Enums
     {

@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace WebApi.Migrations
+namespace RiseWebAssessment.Migrations
 {
     public partial class CreateInitial : Migration
     {

@@ -1,6 +1,6 @@
-﻿using WebApi.Model;
+﻿using RiseWebAssessment.Model;
 
-namespace WebApi
+namespace RiseWebAssessment
 {
     public class User
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Model;
+using RiseWebAssessment.Model;
 
-namespace WebApi.Controllers
+namespace RiseWebAssessment.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

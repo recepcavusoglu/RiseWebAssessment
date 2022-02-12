@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using WebApi.Data;
+using RiseWebAssessment.Data;
 
 #nullable disable
 
-namespace WebApi.Migrations
+namespace RiseWebAssessment.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace WebApi.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "info_type", new[] { "tel", "mail" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApi.Model.Contact", b =>
+            modelBuilder.Entity("RiseWebAssessment.Model.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace WebApi.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("WebApi.User", b =>
+            modelBuilder.Entity("RiseWebAssessment.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,16 +69,16 @@ namespace WebApi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WebApi.Model.Contact", b =>
+            modelBuilder.Entity("RiseWebAssessment.Model.Contact", b =>
                 {
-                    b.HasOne("WebApi.User", null)
+                    b.HasOne("RiseWebAssessment.User", null)
                         .WithMany("Contact")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebApi.User", b =>
+            modelBuilder.Entity("RiseWebAssessment.User", b =>
                 {
                     b.Navigation("Contact");
                 });

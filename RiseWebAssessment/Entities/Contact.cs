@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WebApi.Assets;
+using RiseWebAssessment.Core;
 
-namespace WebApi.Model
+namespace RiseWebAssessment.Model
 {
     public class Contact
     {

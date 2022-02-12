@@ -1,4 +1,4 @@
-global using WebApi.Data;
+global using RiseWebAssessment.Data;
 global using Microsoft.EntityFrameworkCore;
 global using Npgsql;
 
