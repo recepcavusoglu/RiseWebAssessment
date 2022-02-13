@@ -38,6 +38,7 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             await _dataContext.Users.AddAsync(mappedUser);            
             _dataContext.SaveChanges();
         }
+        // TODO: Can this be beter?
         public UserDto UpdateUser(UserDto request)
         {
             var user = _dataContext.Users.Find(request.Id);
@@ -57,10 +58,10 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             _dataContext.Users.Remove(_dataContext.Users.Find(id));
             _dataContext.SaveChangesAsync();
         }
-        public void DeactivateUser(int id)
+        public void ChangeUserStatus(int id)
         {
             var user = _dataContext.Users.Find(id);
-            user.IsActive= false;
+            user.IsActive = !(user.IsActive);
             user.LastModify= DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
             _dataContext.Users.Update(user);
             _dataContext.SaveChanges();
@@ -72,8 +73,12 @@ namespace RiseWebAssessment.Service.ServiceConcretes
         }
         public bool UserExist(int id)
         {
-            // TODO: Make this method
-            return false;
+            var user = _dataContext.Users.Find(id);
+            if (user == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

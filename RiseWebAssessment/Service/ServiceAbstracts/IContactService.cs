@@ -10,7 +10,8 @@ namespace RiseWebAssessment.Service.ServiceAbstracts
         public Task AddContact(ContactDto contactDto);
         public void DeleteContact(int id);
         public ContactDto UpdateContact(ContactDto contact);
-        public void DeactivateContact(int id);
+        public void ChangeContactStatus(int id);
         public Task<List<ContactDto>> GetAllActiveContacts();
+        public bool ContactExist(int id);
     }
 }

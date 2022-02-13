@@ -9,7 +9,8 @@ namespace RiseWebAssessment.Service.ServiceAbstracts
         public Task AddUser(UserDto user);
         public UserDto UpdateUser(UserDto user);
         public void DeleteUser(int id);
-        public void DeactivateUser(int id);
+        public void ChangeUserStatus(int id);
         public Task<List<UserDto>> GetAllActiveUsers();
+        public bool UserExist(int id);
     }
 }

@@ -11,7 +11,7 @@ namespace RiseWebAssessment.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:Enum:info_type", "tel,mail");
+                .Annotation("Npgsql:Enum:info_type", "tel_number,mail,location");
 
             migrationBuilder.CreateTable(
                 name: "Users",

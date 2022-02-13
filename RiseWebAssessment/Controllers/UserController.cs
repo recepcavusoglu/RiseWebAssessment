@@ -25,24 +25,22 @@ namespace RiseWebAssessment.Controllers
         [HttpGet("GetUserById/{id}")] 
         public async Task<ActionResult<UserDto>> GetUserById(int id)
         {
-            var user = userService.GetUser(id);
-            if(user == null)
+            if(userService.UserExist(id))
             {
-                return BadRequest("User Couldnt Found");
+                return Ok(userService.GetUser(id));               
             }
-            return Ok(user);
+            return BadRequest("User Couldnt Found");
         }
 
         [HttpPost("AddUser")] 
         public async Task<ActionResult<List<UserDto>>> AddUser(UserDto userDto)
         {
-            var user = userService.GetUser(userDto.Id);
-            if (user == null)
+            if (userService.UserExist(userDto.Id))
             {
-                userService.AddUser(userDto);
-                return Ok("User Added");
+                return BadRequest("User Already Exist");                
             }
-            return BadRequest("User Already Exist");
+            userService.AddUser(userDto);
+            return Ok("User Added");
         }
 
         [HttpPut("UpdateUser")] 
@@ -56,25 +54,23 @@ namespace RiseWebAssessment.Controllers
         [HttpDelete("DeleteUser/{id}")]
         public async Task<ActionResult<UserDto>> DeleteUser(int id)
         {
-            var user = userService.GetUser(id);
-            if (user == null)
+            if (userService.UserExist(id))
             {
-                return BadRequest("User not found.");
+                userService.DeleteUser(id);
+                return Ok("User Deleted");                
             }
-            userService.DeleteUser(id);
-            return Ok("User Deleted");
+            return BadRequest("User not found.");
         }
 
         [HttpPut("DeactivateUser/{id}")]
-        public async Task<ActionResult<UserDto>> DeactivateUser(int id)
+        public async Task<ActionResult<UserDto>> ChangeUserStatus(int id)
         {
-            var user = userService.GetUser(id);
-            if (user == null)
+            if (userService.UserExist(id))
             {
-                return BadRequest("User not found.");
-            }
-            userService.DeactivateUser(id);
-            return Ok("User Deleted");
+                userService.ChangeUserStatus(id);
+                return Ok("User Deactivated");
+            }            
+            return BadRequest("User not found.");
         }
 
         [HttpGet("GetAllActiveUsers")]
@@ -82,6 +78,19 @@ namespace RiseWebAssessment.Controllers
         {
             var users = await userService.GetAllActiveUsers();
             return Ok(users);
+        }
+        [HttpGet("UserExist/{id}")]
+        public async Task<ActionResult> UserExist(int id)
+        {
+            var exist = userService.UserExist(id);
+            if (exist)
+            {
+                return Ok("User exist");
+            }
+            else
+            {
+                return Ok("User couldnt found");
+            }
         }
     }
 }

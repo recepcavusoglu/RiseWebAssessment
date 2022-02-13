@@ -2,6 +2,6 @@
 {
     public static class Enums
     {
-        public enum InfoType { Tel, Mail }
+        public enum InfoType { TelNumber, Mail,Location }
     }
 }

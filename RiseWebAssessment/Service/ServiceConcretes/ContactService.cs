@@ -38,6 +38,7 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             var contacts = _dataContext.Contacts.ToList();
             return _mapper.Map<List<ContactDto>>(contacts);
         }
+        // TODO: Can this be beter?
         public ContactDto UpdateContact(ContactDto request)
         {
             var contact = _dataContext.Contacts.Find(request.Id);
@@ -56,10 +57,10 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             _dataContext.Contacts.Remove(_dataContext.Contacts.Find(id));
             _dataContext.SaveChangesAsync();
         }
-        public void DeactivateContact(int id) 
+        public void ChangeContactStatus(int id) 
         {
             var contact = _dataContext.Contacts.Find(id);
-            contact.IsActive = !contact.IsActive;
+            contact.IsActive = !(contact.IsActive);
             contact.LastModify = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
             _dataContext.Contacts.Update(contact);
             _dataContext.SaveChanges();
@@ -68,6 +69,15 @@ namespace RiseWebAssessment.Service.ServiceConcretes
         {
             var contacts = _dataContext.Contacts.Where(x => x.IsActive).ToList();
             return _mapper.Map<List<ContactDto>>(contacts);
+        }
+        public bool ContactExist(int id)
+        {
+            var contact = _dataContext.Contacts.Find(id);
+            if (contact == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

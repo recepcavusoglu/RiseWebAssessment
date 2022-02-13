@@ -25,23 +25,22 @@ namespace RiseWebAssessment.Controllers
         [HttpGet("GetContactById/{id}")]
         public async Task<ActionResult<ContactDto>> GetContactById(int id)
         {
-            var contact = contactService.GetContact(id);
-            if (contact == null)
+            if (contactService.ContactExist(id))
             {
-                return BadRequest("Contact Couldnt Found");
+                return Ok(contactService.GetContact(id));
+                
             }
-            return Ok(contact);
+            return BadRequest("Contact Couldnt Found");
         }
         [HttpPost("AddContact")]
         public async Task<ActionResult<List<ContactDto>>> AddContact(ContactDto contactDto)
         {
-            var contact = contactService.GetContact(contactDto.Id);
-            if(contact == null)
+            if(contactService.ContactExist(contactDto.Id))
             {
-                contactService.AddContact(contactDto);
-                return Ok("Contact Added");
+                return BadRequest("Contact Already Exist");
             }
-            return BadRequest("Contact Already Exist");
+            contactService.AddContact(contactDto);
+            return Ok("Contact Added");
         }
         [HttpPut("UpdateContact")]
         public async Task<ActionResult<List<ContactDto>>> UpdateContact(ContactDto request)
@@ -54,8 +53,7 @@ namespace RiseWebAssessment.Controllers
         [HttpDelete("DeleteContact/{id}")]
         public async Task<ActionResult<ContactDto>> DeleteContact(int id)
         {
-            var contact = contactService.GetContact(id);
-            if (contact == null)
+            if (contactService.ContactExist(id))
             {
                 return BadRequest("Contact not found.");
             }
@@ -64,21 +62,33 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpPut("DeactivateContact/{id}")]
-        public async Task<ActionResult<ContactDto>> DeactivateContact(int id)
+        public async Task<ActionResult<ContactDto>> ChangeContactStatus(int id)
         {
-            var contact = contactService.GetContact(id);
-            if (contact == null)
+            if (contactService.ContactExist(id))
             {
-                return BadRequest("Contact not found.");
+                contactService.ChangeContactStatus(id);
+                return Ok("Contact Deactivated");
             }
-            contactService.DeleteContact(id);
-            return Ok("Contact Deleted");
+            return BadRequest("Contact not found.");
         }
 
-        [HttpGet("GetAllActiveContacts/{id}")]
+        [HttpGet("GetAllActiveContacts")]
         public async Task<ActionResult<List<ContactDto>>> GetAllActiveContacts()
         {
             return Ok(GetAllActiveContacts());
+        }
+        [HttpGet("ContactExist/{id}")]
+        public async Task<ActionResult> ContactExist(int id)
+        {
+            var exist = contactService.ContactExist(id);
+            if (exist)
+            {
+                return Ok("Contact exist");
+            }
+            else
+            {
+                return Ok("Contact couldnt found");
+            }
         }
     }
 }

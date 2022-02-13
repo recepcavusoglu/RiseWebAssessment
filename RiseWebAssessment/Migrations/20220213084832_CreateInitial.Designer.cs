@@ -12,7 +12,7 @@ using RiseWebAssessment.Data;
 namespace RiseWebAssessment.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220212214810_CreateInitial")]
+    [Migration("20220213084832_CreateInitial")]
     partial class CreateInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace RiseWebAssessment.Migrations
                 .HasAnnotation("ProductVersion", "6.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "info_type", new[] { "tel", "mail" });
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "info_type", new[] { "tel_number", "mail", "location" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("RiseWebAssessment.Model.Contact", b =>

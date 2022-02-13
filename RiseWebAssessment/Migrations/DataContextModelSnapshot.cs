@@ -20,7 +20,7 @@ namespace RiseWebAssessment.Migrations
                 .HasAnnotation("ProductVersion", "6.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "info_type", new[] { "tel", "mail" });
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "info_type", new[] { "tel_number", "mail", "location" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("RiseWebAssessment.Model.Contact", b =>
