@@ -37,7 +37,6 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             var contacts = _dataContext.Contacts.ToList();
             return _mapper.Map<List<ContactDto>>(contacts);
         }
-        // TODO: Can this be beter?
         public ContactDto UpdateContact(ContactDto request)
         {
             var contact = _dataContext.Contacts.Find(request.Id);

@@ -38,7 +38,6 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             await _dataContext.Users.AddAsync(mappedUser);            
             _dataContext.SaveChanges();
         }
-        // TODO: Can this be beter?
         public UserDto UpdateUser(UserDto request)
         {
             var user = _dataContext.Users.Find(request.Id);

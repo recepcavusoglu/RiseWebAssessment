@@ -15,11 +15,6 @@ namespace RiseWebAssessment.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresEnum<Enums.InfoType>();
-
-            //modelBuilder.Entity<Contact>().Property(e => e.InfoType).HasConversion(
-            //v => v.ToString(),
-            //v => (Enums.InfoType)Enum.Parse(typeof(Enums.InfoType), v));
-
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
             modelBuilder.Entity<User>().HasKey(c => new { c.Id });

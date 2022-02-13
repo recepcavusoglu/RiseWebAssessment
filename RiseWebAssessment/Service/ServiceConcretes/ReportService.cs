@@ -7,7 +7,6 @@ using static RiseWebAssessment.Core.Enums;
 
 namespace RiseWebAssessment.Service.ServiceConcretes
 {
-    // TODO: Check Redis First
     public class ReportService : IReportService
     {
         private readonly DataContext _dataContext;
