@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using RiseWebAssessment.Core;
 using RiseWebAssessment.Data;
 
 #nullable disable
@@ -12,7 +13,7 @@ using RiseWebAssessment.Data;
 namespace RiseWebAssessment.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220213093754_CreateInitial")]
+    [Migration("20220213113728_CreateInitial")]
     partial class CreateInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,9 +38,8 @@ namespace RiseWebAssessment.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("InfoType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Enums.InfoType>("InfoType")
+                        .HasColumnType("info_type");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");

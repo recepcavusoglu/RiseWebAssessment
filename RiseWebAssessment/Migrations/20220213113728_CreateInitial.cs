@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using RiseWebAssessment.Core;
 
 #nullable disable
 
@@ -37,7 +38,7 @@ namespace RiseWebAssessment.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false),
-                    InfoType = table.Column<string>(type: "text", nullable: false),
+                    InfoType = table.Column<Enums.InfoType>(type: "info_type", nullable: false),
                     InfoContent = table.Column<string>(type: "text", nullable: false),
                     LastModify = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false)

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using RiseWebAssessment.Core;
 using RiseWebAssessment.Data;
 
 #nullable disable
@@ -35,9 +36,8 @@ namespace RiseWebAssessment.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("InfoType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Enums.InfoType>("InfoType")
+                        .HasColumnType("info_type");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
