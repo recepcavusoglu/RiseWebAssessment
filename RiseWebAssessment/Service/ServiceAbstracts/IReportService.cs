@@ -5,9 +5,9 @@ namespace RiseWebAssessment.Service.ServiceAbstracts
 {
     public interface IReportService
     {
-        public void GetCountByLocation(string location);
-        public void GetTelNumberCountByLocation(string location);
-        public List<BaseReport> GetLocations();
+        public ReportX GetCountByLocation(string location);
+        public ReportX GetTelNumberCountByLocation(string location);
+        public ReportX GetLocations();
         public void GetReportFromRedis();
     }
 }
