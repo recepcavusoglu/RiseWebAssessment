@@ -32,6 +32,9 @@ namespace RiseWebAssessment.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("InfoContent")
                         .IsRequired()
                         .HasColumnType("text");
@@ -66,6 +69,9 @@ namespace RiseWebAssessment.Migrations
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

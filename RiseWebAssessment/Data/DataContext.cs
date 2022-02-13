@@ -12,7 +12,6 @@ namespace RiseWebAssessment.Data
         {
             NpgsqlConnection.GlobalTypeMapper.MapEnum<Enums.InfoType>();
         }
-        //TODO: can this Enum be better?
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresEnum<Enums.InfoType>();

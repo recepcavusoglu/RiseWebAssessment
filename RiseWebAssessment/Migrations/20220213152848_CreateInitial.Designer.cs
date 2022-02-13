@@ -13,7 +13,7 @@ using RiseWebAssessment.Data;
 namespace RiseWebAssessment.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220213113728_CreateInitial")]
+    [Migration("20220213152848_CreateInitial")]
     partial class CreateInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace RiseWebAssessment.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("InfoContent")
                         .IsRequired()
@@ -68,6 +71,9 @@ namespace RiseWebAssessment.Migrations
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

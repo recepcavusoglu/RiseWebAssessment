@@ -15,7 +15,6 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             _dataContext = dataContext;
             _mapper = mapper;
         }
-        // TODO: Fix Enum
         public async Task AddContact(ContactDto contactDto)
         {
             var mappedUser = _mapper.Map<Contact>(contactDto);

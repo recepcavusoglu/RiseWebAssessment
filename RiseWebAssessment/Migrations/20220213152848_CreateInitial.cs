@@ -24,6 +24,7 @@ namespace RiseWebAssessment.Migrations
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Company = table.Column<string>(type: "text", nullable: false),
                     LastModify = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -41,6 +42,7 @@ namespace RiseWebAssessment.Migrations
                     InfoType = table.Column<Enums.InfoType>(type: "info_type", nullable: false),
                     InfoContent = table.Column<string>(type: "text", nullable: false),
                     LastModify = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>

@@ -34,10 +34,9 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             var result = _dataContext.Contacts.Where(x => x.InfoType == Core.Enums.InfoType.TelNumber).Where(y => subquery.Contains(y.UserId)).Select(z => z.InfoType).Count();
 
             var reportX = new ReportX();
-            reportX.Report.Add(new BaseReport(location,result));
+            reportX.Report.Add(new BaseReport(location, result));
             return reportX;
         }
-        // TODO: Sort This Dict
         public ReportX GetLocations()
         {
             //string query = "SELECT DISTINCT \"InfoContent\", count(\"InfoContent\") FROM public.\"Contacts\" WHERE \"InfoType\" = 'location' GROUP BY \"InfoContent\"";
@@ -52,9 +51,10 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             reportX.Report = result;
             return reportX;
         }
+        // TODO: Get Reports from Redis
         public void GetReportFromRedis()
         {
-            
+
         }
     }
 }
