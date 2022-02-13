@@ -1,17 +1,22 @@
-﻿using RiseWebAssessment.Core.Reports;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
+using RiseWebAssessment.Core.Reports;
 using RiseWebAssessment.Model;
 using RiseWebAssessment.Service.ServiceAbstracts;
 using static RiseWebAssessment.Core.Enums;
 
 namespace RiseWebAssessment.Service.ServiceConcretes
 {
+    // TODO: Check Redis First
     public class ReportService : IReportService
     {
         private readonly DataContext _dataContext;
+        private readonly ICacheService cacheService;
 
-        public ReportService(DataContext dataContext)
+        public ReportService(DataContext dataContext, ICacheService cacheService)
         {
             _dataContext = dataContext;
+            this.cacheService = cacheService;
         }
 
         public ReportX GetCountByLocation(string location)
@@ -25,6 +30,7 @@ namespace RiseWebAssessment.Service.ServiceConcretes
                                     }).OrderByDescending(z => z.Count).ToList();
             var reportX = new ReportX();
             reportX.Report = result;
+            cacheService.SendCache(reportX, 30);
             return reportX;
         }
 
@@ -35,6 +41,7 @@ namespace RiseWebAssessment.Service.ServiceConcretes
 
             var reportX = new ReportX();
             reportX.Report.Add(new BaseReport(location, result));
+            cacheService.SendCache(reportX, 30);
             return reportX;
         }
         public ReportX GetLocations()
@@ -49,12 +56,13 @@ namespace RiseWebAssessment.Service.ServiceConcretes
                                     }).OrderByDescending(z => z.Count).ToList();
             var reportX = new ReportX();
             reportX.Report = result;
+            cacheService.SendCache(reportX, 30);
             return reportX;
         }
-        // TODO: Get Reports from Redis
-        public void GetReportFromRedis()
-        {
-
+        public ReportX GetReportFromCache(string reportId)
+        {            
+            var reportX = cacheService.GetCache(reportId);
+            return reportX;
         }
     }
 }

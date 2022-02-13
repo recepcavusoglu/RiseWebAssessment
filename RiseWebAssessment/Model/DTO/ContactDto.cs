@@ -6,7 +6,6 @@ namespace RiseWebAssessment.Model.DTO
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        //public User User { get; }
         public Enums.InfoType InfoType { get; set; }
         public string InfoContent { get; set; }
     }

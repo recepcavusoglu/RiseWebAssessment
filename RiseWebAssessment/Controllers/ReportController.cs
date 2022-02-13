@@ -35,5 +35,11 @@ namespace RiseWebAssessment.Controllers
             var report = reportService.GetTelNumberCountByLocation(location);
             return Ok(report);
         }
+        [HttpGet("GetReportFromCache/{reportId}")]
+        public async Task<ActionResult<ReportX>> GetReportFromCache(string reportId)
+        {
+            var report = reportService.GetReportFromCache(reportId);
+            return Ok(report);
+        }
     }
 }

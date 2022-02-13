@@ -8,6 +8,6 @@ namespace RiseWebAssessment.Service.ServiceAbstracts
         public ReportX GetCountByLocation(string location);
         public ReportX GetTelNumberCountByLocation(string location);
         public ReportX GetLocations();
-        public void GetReportFromRedis();
+        public ReportX GetReportFromCache(string reportId);
     }
 }

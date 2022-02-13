@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddControllers();
 //sync problem
 //builder.Services.AddTransient<DataContext>();
@@ -18,6 +19,14 @@ builder.Services.AddDbContext<DataContext>(x => x.UseNpgsql(builder.Configuratio
 //    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 //});
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddDistributedRedisCache(options => {
+    options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
+    //options.Configuration = builder.Configuration["Redis"];
+    //options.InstanceName = "redisCache";
+});
+//builder.Services.AddStackExchangeRedisCache(options => {
+//    options.Configuration = options.Configuration = builder.Configuration["Redis"];
+//});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
