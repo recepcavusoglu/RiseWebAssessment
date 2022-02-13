@@ -47,7 +47,7 @@ namespace RiseWebAssessment.Controllers
         public async Task<ActionResult<List<UserDto>>> UpdateUser(UserDto request)
         {
             var user = userService.UpdateUser(request);
-            if(user == request) { return BadRequest("Error while updating"); }
+            if(user == null) { return BadRequest("Error couldnt found"); }
             return Ok(user);
         }
 
@@ -68,7 +68,7 @@ namespace RiseWebAssessment.Controllers
             if (userService.UserExist(id))
             {
                 userService.ChangeUserStatus(id);
-                return Ok("User Deactivated");
+                return Ok("User Active Status Changed");
             }            
             return BadRequest("User not found.");
         }

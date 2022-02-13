@@ -46,7 +46,7 @@ namespace RiseWebAssessment.Controllers
         public async Task<ActionResult<List<ContactDto>>> UpdateContact(ContactDto request)
         {
             var contact = contactService.UpdateContact(request);
-            if (contact == request) { return BadRequest("Error while updating"); }
+            if (contact == null) { return BadRequest("Error couldnt found"); }
             return Ok(contact);
         }
 
