@@ -9,6 +9,6 @@ namespace RiseWebAssessment
         public string FirstName { get; set; } = String.Empty;
         public string LastName { get; set; } = String.Empty;
         public string Company { get; set; } = String.Empty;
-        public ICollection<Contact>? Contact { get; }
+        public ICollection<Contact> Contact { get; set; }
     }
 }

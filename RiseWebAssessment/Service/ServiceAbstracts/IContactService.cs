@@ -13,5 +13,6 @@ namespace RiseWebAssessment.Service.ServiceAbstracts
         public void ChangeContactStatus(int id);
         public Task<List<ContactDto>> GetAllActiveContacts();
         public bool ContactExist(int id);
+        public List<ContactDto> GetContactWithUserId(int id);
     }
 }

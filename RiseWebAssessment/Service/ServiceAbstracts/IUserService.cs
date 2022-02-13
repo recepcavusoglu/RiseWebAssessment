@@ -12,5 +12,6 @@ namespace RiseWebAssessment.Service.ServiceAbstracts
         public void ChangeUserStatus(int id);
         public Task<List<UserDto>> GetAllActiveUsers();
         public bool UserExist(int id);
+        public UserWithContactDto GetUserWithContact(int id);
     }
 }

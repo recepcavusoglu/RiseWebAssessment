@@ -90,5 +90,10 @@ namespace RiseWebAssessment.Controllers
                 return Ok("Contact couldnt found");
             }
         }
+        [HttpGet("GetContactWithUserId/{id}")]
+        public async Task<ActionResult<List<ContactDto>>> GetContactWithUserId(int id)
+        {
+           return Ok(contactService.GetContactWithUserId(id));
+        }
     }
 }

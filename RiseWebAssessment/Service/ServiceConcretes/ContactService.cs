@@ -79,5 +79,11 @@ namespace RiseWebAssessment.Service.ServiceConcretes
             }
             return true;
         }
+        public List<ContactDto> GetContactWithUserId(int id)
+        {
+            var contact = _dataContext.Contacts.Where(x => x.UserId == id);
+            var contactDto = _mapper.Map<List<ContactDto>>(contact);
+            return contactDto;
+        }
     }
 }
