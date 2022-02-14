@@ -36,7 +36,7 @@ All the necessary NuGet packages listed below.
 
 ## Connecting API to Postgres and Redis
 
-To Connect Postgres and Redis just change connection strings accordingly to connection string
+To connect Postgres and Redis just change connection strings accordingly to connection string
 
 ```sh
 "ConnectionStrings": {
@@ -83,5 +83,8 @@ To Connect Postgres and Redis just change connection strings accordingly to conn
 | GET | api/Report/GetTelNumberCountByLocation/{location} |  Gets tel number count on a specific location |
 | GET | api/Report/GetReportFromCache/{reportID} |  Gets old reports from Redis Cache |
 
+### Report Controller
+
+Redis is used for storing high cost query results for a period of time. With reportID users can get old query results.
 
 **Recep ÇAVUŞOĞLU**
