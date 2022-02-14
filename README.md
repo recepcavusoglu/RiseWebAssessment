@@ -4,10 +4,24 @@
 
 This is a REST API on .Net Core 6 for Rise Technology Back-End Assessment.
 
-- .Net Core 6
-- PostgreSQL
-- Redis
+- .Net Core 6 : All codebase developed using .Net Core 6 and EF Core
+- PostgreSQL : Used for main data storage
+- Redis : Used for storing high cost query results for a period of time. With reportID users can get old query results.
 
+
+### Directory layout
+
+    ├── Controllers             # Controllers
+    ├── Core                    # Project Wide Files
+    ├── Data                    # Database Repository
+    ├── Migrations              # Database Migrations Files created by .net
+    ├── Model                   # Data Models
+        ├── DTO                 # DTO Models
+        ├── Entities            # Entity Models
+    ├── Service                 # Service
+        ├── ServiceAbstracts    # Service Interfaces
+        ├── ServiceConcretes    # Service Implementations
+    └── appsettings.json        # Config File
 
 ## Database Migration
 
@@ -83,8 +97,5 @@ To connect Postgres and Redis just change connection strings accordingly to conn
 | GET | api/Report/GetTelNumberCountByLocation/{location} |  Gets tel number count on a specific location |
 | GET | api/Report/GetReportFromCache/{reportID} |  Gets old reports from Redis Cache |
 
-### Report Controller
-
-Redis is used for storing high cost query results for a period of time. With reportID users can get old query results.
 
 **Recep ÇAVUŞOĞLU**
