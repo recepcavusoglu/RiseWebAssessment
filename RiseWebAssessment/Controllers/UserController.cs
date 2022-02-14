@@ -33,7 +33,7 @@ namespace RiseWebAssessment.Controllers
         }
 
         [HttpPost("AddUser")] 
-        public async Task<ActionResult<List<UserDto>>> AddUser(UserDto userDto)
+        public async Task<ActionResult<List<string>>> AddUser(UserDto userDto)
         {
             if (userService.UserExist(userDto.Id))
             {
@@ -47,12 +47,12 @@ namespace RiseWebAssessment.Controllers
         public async Task<ActionResult<List<UserDto>>> UpdateUser(UserDto request)
         {
             var user = userService.UpdateUser(request);
-            if(user == null) { return BadRequest("Error couldnt found"); }
+            if(user == null) { return BadRequest("Error. User couldnt found"); }
             return Ok(user);
         }
 
         [HttpDelete("DeleteUser/{id}")]
-        public async Task<ActionResult<UserDto>> DeleteUser(int id)
+        public async Task<ActionResult<string>> DeleteUser(int id)
         {
             if (userService.UserExist(id))
             {

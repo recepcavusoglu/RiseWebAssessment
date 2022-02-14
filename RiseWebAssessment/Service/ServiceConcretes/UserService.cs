@@ -20,7 +20,6 @@ namespace RiseWebAssessment.Service.ServiceConcretes
         {
             var users = _dataContext.Users.ToList();
             return _mapper.Map<List<UserDto>>(users);
-
         }
         public UserDto GetUser(int id)
         {
